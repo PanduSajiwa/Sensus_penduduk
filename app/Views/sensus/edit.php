@@ -5,85 +5,117 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edit Penduduk</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <style>
 body {
-    background: 
-        linear-gradient(rgba(224, 247, 250, 0.7), rgba(225, 245, 254, 0.7)),
-        url('/assets/img/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: 80vh;
+    background: linear-gradient(135deg, #007bff, #00bcd4);
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif;
 }
 
-/* Card animasi */
+/* ===== CARD ===== */
 .card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 550px;
     animation: fadeIn 0.8s ease-in-out;
-    border-radius: 15px;
-    transition: transform 0.3s;
+    overflow: hidden;
 }
 
-.card:hover {
-    transform: translateY(-5px);
+.card-header {
+    background: linear-gradient(90deg, #007bff, #00bcd4);
+    color: white;
+    text-align: center;
+    padding: 1.2rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
 }
 
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+/* ===== FORM ELEMENTS ===== */
+label.form-label {
+    font-weight: 500;
+    color: #333;
 }
 
-/* Input & textarea efek */
 input.form-control, textarea.form-control, select.form-select {
     border-radius: 10px;
     transition: all 0.3s;
+    border: 1px solid #ddd;
 }
 
 input.form-control:focus, textarea.form-control:focus, select.form-select:focus {
-    box-shadow: 0 0 10px rgba(13,110,253,0.4);
-    border-color: #0d6efd;
+    box-shadow: 0 0 10px rgba(0,123,255,0.4);
+    border-color: #007bff;
 }
 
-/* Tombol efek hover */
-.btn-secondary:hover, .btn-warning:hover {
-    transform: scale(1.05);
-    transition: all 0.2s;
+/* ===== BUTTONS ===== */
+.btn-secondary, .btn-warning {
+    border: none;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Header card gradient */
-.card-header.bg-warning {
-    background: linear-gradient(to right, #ffc107, #ff9800);
+.btn-warning {
+    background: linear-gradient(45deg, #ffca28, #ff9800);
     color: white;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #90a4ae, #607d8b);
+    color: white;
+}
+
+.btn-warning:hover, .btn-secondary:hover {
+    transform: scale(1.05);
+}
+
+/* ===== ANIMASI ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 576px) {
+    .card {
+        margin: 1rem;
+    }
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="container py-5">
-    <div class="card shadow-lg">
-        <div class="card-header bg-warning">
-            <h4 class="mb-0">Edit Data Penduduk</h4>
+    <div class="card">
+        <div class="card-header">
+            <i class="bi bi-pencil-square"></i> Edit Data Penduduk
         </div>
-        <div class="card-body">
+        <div class="card-body p-4">
             <form action="/sensus/update/<?= $sensus['id'] ?>" method="post">
+                
                 <div class="mb-3">
                     <label class="form-label">Nama Penduduk</label>
-                    <input type="text" name="nama_penduduk" class="form-control" value="<?= $sensus['nama_penduduk'] ?>" required>
+                    <input type="text" name="nama_penduduk" class="form-control" 
+                           value="<?= $sensus['nama_penduduk'] ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">NIK</label>
                     <input type="text" name="nik" class="form-control"
-                        value="<?= $sensus['nik'] ?>" 
-                        required 
-                        maxlength="16" 
-                        pattern="\d{16}" 
-                        title="NIK harus 16 digit angka saja"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                        placeholder="16 digit angka">
+                           value="<?= $sensus['nik'] ?>" required maxlength="16" 
+                           pattern="\d{16}" title="NIK harus 16 digit angka saja"
+                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                           placeholder="16 digit angka">
                 </div>
 
                 <div class="mb-3">
@@ -105,7 +137,8 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" class="form-control" value="<?= $sensus['tanggal_lahir'] ?>" required>
+                        <input type="date" name="tanggal_lahir" class="form-control" 
+                               value="<?= $sensus['tanggal_lahir'] ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Jenis Kelamin</label>
@@ -116,14 +149,17 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <a href="/sensus" class="btn btn-secondary">Kembali</a>
-                    <button type="submit" class="btn btn-warning">Perbarui</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="/sensus" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle"></i> Kembali
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-save2-fill"></i> Perbarui
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>
